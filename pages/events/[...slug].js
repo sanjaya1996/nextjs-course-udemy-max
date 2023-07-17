@@ -19,9 +19,17 @@ function FilteredEventsPage(props) {
   // const numYear = +filteredYear;
   // const numMonth = +filteredMonth;
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name='description' content='A list of filtered events' />
+    </Head>
+  );
+
   if (props.hasError) {
     return (
       <>
+        {pageHeadData}
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>;
           <div className='center'>
@@ -37,6 +45,7 @@ function FilteredEventsPage(props) {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
+        {pageHeadData}
         <ErrorAlert>
           <p>No events found for the choosen filters</p>
         </ErrorAlert>
@@ -47,16 +56,19 @@ function FilteredEventsPage(props) {
     );
   }
 
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name='description'
+        content={`All events for ${props.date.year}/${props.date.month}`}
+      />
+    </Head>
+  );
   const date = new Date(props.date.year, props.date.month - 1);
   return (
     <div>
-      <Head>
-        <title>Filtered Events</title>
-        <meta
-          name='description'
-          content={`All events for ${props.date.year}/${props.date.month}`}
-        />
-      </Head>
+      {pageHeadData}
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </div>
