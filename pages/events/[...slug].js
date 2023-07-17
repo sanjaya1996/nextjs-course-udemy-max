@@ -1,9 +1,10 @@
+import Head from 'next/head';
+
 import EventList from '@/components/events/event-list';
 import ResultsTitle from '@/components/events/results-title';
 import Button from '@/components/ui/button';
 import ErrorAlert from '@/components/ui/error-alert';
 import { getFilteredEvents } from '@/helpers/api-util';
-import { useRouter } from 'next/router';
 
 function FilteredEventsPage(props) {
   // const router = useRouter();
@@ -49,6 +50,13 @@ function FilteredEventsPage(props) {
   const date = new Date(props.date.year, props.date.month - 1);
   return (
     <div>
+      <Head>
+        <title>Filtered Events</title>
+        <meta
+          name='description'
+          content={`All events for ${props.date.year}/${props.date.month}`}
+        />
+      </Head>
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </div>
